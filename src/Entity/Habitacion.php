@@ -5,6 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\Table(name: 'habitacion', uniqueConstraints: [
+    new ORM\UniqueConstraint(name: 'hotel_habitacion_codigo_unique', columns: ['codigo', 'hotel_id'])
+])]
 class Habitacion
 {
     #[ORM\Id]
@@ -33,6 +36,11 @@ class Habitacion
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString(): string
+    {
+        return $this->codigo;
     }
 
     public function getHotel(): ?Hotel
