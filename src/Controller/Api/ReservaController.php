@@ -7,15 +7,22 @@ use App\Entity\Hotel;
 use App\Entity\Habitacion;
 use App\Exception\BusinessException;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/reserva')]
+#[OA\Tag(name: 'Reserva')]
 class ReservaController extends AbstractController
 {
     #[Route('', methods: ['GET'])]
+    #[OA\Get(
+        path: '/api/reserva',
+        summary: 'Listar reservas',
+        responses: [new OA\Response(response: 200, description: 'OK')]
+    )]
     public function list(EntityManagerInterface $em): JsonResponse
     {
         $items = $em->getRepository(Reserva::class)->findAll();
@@ -24,6 +31,27 @@ class ReservaController extends AbstractController
     }
 
     #[Route('', methods: ['POST'])]
+    #[OA\Post(
+        path: '/api/reserva',
+        summary: 'Crear reserva',
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'cliente', type: 'string', example: 'Juan Pérez'),
+                    new OA\Property(property: 'numeroDocumento', type: 'string', example: '12345678'),
+                    new OA\Property(property: 'edad', type: 'integer', example: 35),
+                    new OA\Property(property: 'fechaReserva', type: 'string', format: 'date', example: '2026-07-10'),
+                    new OA\Property(property: 'fechaIngreso', type: 'string', format: 'date', example: '2026-07-15'),
+                    new OA\Property(property: 'fechaSalida', type: 'string', format: 'date', example: '2026-07-20'),
+                    new OA\Property(property: 'hotelId', type: 'integer', example: 1),
+                    new OA\Property(property: 'habitacionId', type: 'integer', example: 1)
+                ]
+            )
+        ),
+        responses: [new OA\Response(response: 201, description: 'Created')]
+    )]
     public function create(Request $request, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -57,6 +85,30 @@ class ReservaController extends AbstractController
     }
 
     #[Route('/{id}', methods: ['PUT'])]
+    #[OA\Put(
+        path: '/api/reserva/{id}',
+        summary: 'Editar reserva',
+        parameters: [
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+        ],
+        requestBody: new OA\RequestBody(
+            required: true,
+            content: new OA\JsonContent(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'cliente', type: 'string', example: 'Juan Pérez'),
+                    new OA\Property(property: 'numeroDocumento', type: 'string', example: '12345678'),
+                    new OA\Property(property: 'edad', type: 'integer', example: 35),
+                    new OA\Property(property: 'fechaReserva', type: 'string', format: 'date', example: '2026-07-10'),
+                    new OA\Property(property: 'fechaIngreso', type: 'string', format: 'date', example: '2026-07-15'),
+                    new OA\Property(property: 'fechaSalida', type: 'string', format: 'date', example: '2026-07-20'),
+                    new OA\Property(property: 'hotelId', type: 'integer', example: 1),
+                    new OA\Property(property: 'habitacionId', type: 'integer', example: 1)
+                ]
+            )
+        ),
+        responses: [new OA\Response(response: 200, description: 'OK')]
+    )]
     public function edit(int $id, Request $request, EntityManagerInterface $em): JsonResponse
     {
         $repo = $em->getRepository(Reserva::class);
