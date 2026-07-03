@@ -18,7 +18,9 @@ final class HabitacionService
 
     public function list(): array
     {
-        return $this->em->getRepository(Habitacion::class)->findAll();
+        $repo = $this->em->getRepository(Habitacion::class);
+        return $repo->findForList();
+
     }
 
     public function create(array $data): Habitacion
@@ -37,7 +39,7 @@ final class HabitacionService
             throw new BusinessException('No se pueden registrar más habitaciones para este hotel. Se ha alcanzado el límite de ' . $numHabitaciones . ' habitaciones.');
         }
 
-        if($dto->getCodigo() && strlen($dto->getCodigo()) > 15) {
+        if($dto->codigo&& strlen($dto->codigo) > 15) {
             throw new BusinessException('El código de la habitación no puede exceder los 15 caracteres.');
         }
 

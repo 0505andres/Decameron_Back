@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: \App\Repository\HabitacionRepository::class)]
 #[ORM\Table(name: 'habitacion', uniqueConstraints: [
     new ORM\UniqueConstraint(name: 'hotel_habitacion_codigo_unique', columns: ['codigo', 'hotel_id'])
 ])]

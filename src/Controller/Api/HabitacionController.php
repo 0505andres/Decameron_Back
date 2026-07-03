@@ -42,9 +42,8 @@ class HabitacionController extends AbstractController
                     new OA\Property(property: 'codigo', type: 'string', example: 'HAB-001'),
                     new OA\Property(property: 'hotelId', type: 'integer', example: 1),
                     new OA\Property(property: 'tipoHabitacionId', type: 'integer', example: 1),
-                    new OA\Property(property: 'acomodacionId', type: 'integer', example: 1),
-                    new OA\Property(property: 'libre', type: 'boolean', example: true),
-                    new OA\Property(property: 'activo', type: 'boolean', example: true)
+                    new OA\Property(property: 'acomodacionId', type: 'integer', example: 1)
+
                 ]
             )
         ),
