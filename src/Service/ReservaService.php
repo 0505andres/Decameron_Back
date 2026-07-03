@@ -17,7 +17,9 @@ final class ReservaService
 
     public function list(): array
     {
-        return $this->em->getRepository(Reserva::class)->findAll();
+        $repo = $this->em->getRepository(Reserva::class);
+        return $repo->findForList();
+
     }
 
     public function create(array $data): Reserva
