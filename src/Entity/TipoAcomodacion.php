@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity]
+#[UniqueEntity(fields: ['nombre'], message: 'Este tipo de acomodación ya está registrado.')]
 class TipoAcomodacion
 {
     #[ORM\Id]
@@ -12,7 +14,7 @@ class TipoAcomodacion
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: false, unique: true)]
     private ?string $nombre = null;
 
     public function getId(): ?int
