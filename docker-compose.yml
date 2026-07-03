@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: decameron_app
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://symfony:symfony@db:5432/symfony?serverVersion=13&charset=utf8"
+
+  db:
+    image: postgres:13
+    container_name: decameron_db
+    environment:
+      POSTGRES_USER: symfony
+      POSTGRES_PASSWORD: symfony
+      POSTGRES_DB: symfony
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+    driver: local
