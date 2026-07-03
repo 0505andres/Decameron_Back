@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/habitacion')]
 #[OA\Tag(name: 'Habitacion')]
-
 class HabitacionController extends AbstractController
 {
     public function __construct(private HabitacionService $service)

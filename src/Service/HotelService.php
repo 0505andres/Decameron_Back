@@ -16,7 +16,11 @@ final class HotelService
 
     public function list(): array
     {
-        return $this->em->getRepository(Hotel::class)->findAll();
+        $repo = $this->em->getRepository(Hotel::class);
+
+            return $repo->findForList();
+
+        return $result;
     }
 
     public function create(array $data): Hotel
