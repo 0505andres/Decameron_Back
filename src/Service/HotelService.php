@@ -32,6 +32,9 @@ final class HotelService
             if (!$ciudad) throw new BusinessException('Ciudad no encontrada');
         }
 
+        $existe = $this->em->getRepository(Hotel::class)->findBy(['nombre' => $dto->nombre,'nit' => $dto->nit]);
+        if ($existe) throw new BusinessException('Hotel ya se encuentra registrado');
+
         $hotel = new Hotel();
         $hotel->setNombre($dto->nombre);
         $hotel->setDireccion($dto->direccion);
@@ -51,6 +54,10 @@ final class HotelService
         $repo = $this->em->getRepository(Hotel::class);
         $hotel = $repo->find($id);
         if (!$hotel) throw new BusinessException('Not found');
+        if($data['nombre'] != $hotel->getNombre() || $data['nit'] != $hotel->getNit()) {
+            $existe = $this->em->getRepository(Hotel::class)->findBy(['nombre' => $data['nombre'],'nit' => $data['nit']]);
+            if ($existe) throw new BusinessException('Hotel ya se encuentra registrado');
+        }
 
         if (isset($data['nombre'])) $hotel->setNombre($data['nombre']);
         if (isset($data['direccion'])) $hotel->setDireccion($data['direccion']);

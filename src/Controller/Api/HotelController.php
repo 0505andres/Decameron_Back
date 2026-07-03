@@ -44,7 +44,10 @@ class HotelController extends AbstractController
                 type: 'object',
                 properties: [
                     new OA\Property(property: 'nombre', type: 'string', example: 'Hotel Decameron'),
-                    new OA\Property(property: 'ciudadId', type: 'integer', example: 1)
+                    new OA\Property(property: 'direccion', type: 'string', example: 'Calle 13 # 45-67'),
+                    new OA\Property(property: 'nit', type: 'string', example: '123456789'),
+                    new OA\Property(property: 'ciudadId', type: 'integer', example: 1),
+                    new OA\Property(property: 'numeroHabitaciones', type: 'integer', example: 50)
                 ]
             )
         ),
@@ -71,8 +74,11 @@ class HotelController extends AbstractController
             content: new OA\JsonContent(
                 type: 'object',
                 properties: [
-                    new OA\Property(property: 'nombre', type: 'string', example: 'Hotel Nuevo'),
-                    new OA\Property(property: 'ciudadId', type: 'integer', example: 2)
+                    new OA\Property(property: 'nombre', type: 'string', example: 'Hotel Decameron'),
+                    new OA\Property(property: 'direccion', type: 'string', example: 'Calle 13 # 45-67'),
+                    new OA\Property(property: 'nit', type: 'string', example: '123456789'),
+                    new OA\Property(property: 'ciudadId', type: 'integer', example: 1),
+                    new OA\Property(property: 'numeroHabitaciones', type: 'integer', example: 50)
                 ]
             )
         ),

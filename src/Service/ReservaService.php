@@ -36,6 +36,8 @@ final class ReservaService
         $habitacion = $this->em->getRepository(Habitacion::class)->find($dto->habitacionId);
         if (!$habitacion) throw new BusinessException('Habitacion no encontrada');
 
+
+
         $res = new Reserva();
         $res->setCliente($dto->cliente);
         $res->setNumeroDocumento($dto->numeroDocumento);
