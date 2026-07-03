@@ -47,7 +47,7 @@ final class HabitacionRepository extends ServiceEntityRepository
     public function findAvailableCodes(int $hotelId, int $tipoHabitacionId, int $acomodacionId): array
     {
         $qb = $this->createQueryBuilder('h')
-            ->select('h.codigo AS codigo')
+            ->select('h.id as id','h.codigo AS codigo')
             ->leftJoin('h.hotel', 'hotel')
             ->leftJoin('h.tipoHabitacion', 'tipo')
             ->leftJoin('h.acomodacion', 'acom')
@@ -56,13 +56,11 @@ final class HabitacionRepository extends ServiceEntityRepository
             ->andWhere('acom.id = :acomodacionId')
             ->andWhere('h.libre = true')
             ->andWhere('h.activo = true')
-            ->setParameters([
-                'hotelId' => $hotelId,
-                'tipoHabitacionId' => $tipoHabitacionId,
-                'acomodacionId' => $acomodacionId,
-            ])
+            ->setParameter('hotelId', $hotelId)
+            ->setParameter('tipoHabitacionId', $tipoHabitacionId)
+            ->setParameter('acomodacionId', $acomodacionId)
             ->orderBy('h.codigo', 'ASC');
 
-        return array_column($qb->getQuery()->getArrayResult(), 'codigo');
+       return $qb->getQuery()->getArrayResult();
     }
 }
