@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: decameron-back
+    env: docker
+    repo: https://github.com/<your-org-or-user>/<your-repo>
+    branch: main
+    dockerfilePath: Dockerfile
+    buildCommand: ''
+    startCommand: php -S 0.0.0.0:$PORT -t public
+    envVars:
+      - key: APP_ENV
+        value: prod
+      - key: APP_DEBUG
+        value: '0'
+      - key: APP_SECRET
+        value: <your_app_secret_here>
+
+databases:
+  - name: decameron-db
+    engine: postgresql
+    version: '13'
+    plan: starter
