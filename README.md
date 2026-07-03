@@ -12,7 +12,7 @@ Aplicación Symfony contenida con PostgreSQL.
 1. Abrir la carpeta del proyecto:
 
 ```bash
-cd d:/Datos/Desarrollo/PHP/Symfony/Decameron_Back
+cd ruta_descarga/Decameron_Back
 ```
 
 2. Construir y levantar los contenedores:
@@ -35,7 +35,7 @@ docker compose exec app sh -lc "php bin/console cache:clear --no-warmup"
 
 ## Acceso
 
-- Aplicación: `http://localhost:9000`
+- Aplicación: `http://localhost:9000/api/docs`
 - Base de datos PostgreSQL:
   - Host: `localhost`
   - Puerto: `5432`
