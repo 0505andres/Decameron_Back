@@ -19,6 +19,6 @@ ENV APP_ENV=prod
 ENV APP_DEBUG=0
 ENV PORT=8080
 
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --classmap-authoritative
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader --classmap-authoritative --no-scripts
 EXPOSE 8080
 CMD ["sh", "-lc", "php -S 0.0.0.0:${PORT:-8080} -t public"]
