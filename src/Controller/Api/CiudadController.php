@@ -2,8 +2,7 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Ciudad;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\CiudadService;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,15 +13,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[OA\Tag(name: 'Ciudad')]
 class CiudadController extends AbstractController
 {
+    public function __construct(private CiudadService $service)
+    {
+    }
+
     #[Route('', methods: ['GET'])]
     #[OA\Get(
         path: '/api/ciudad',
         summary: 'Listar ciudades',
         responses: [new OA\Response(response: 200, description: 'OK')]
     )]
-    public function list(EntityManagerInterface $em): JsonResponse
+    public function list(): JsonResponse
     {
-        $items = $em->getRepository(Ciudad::class)->findAll();
+        $items = $this->service->list();
 
         return $this->json($items);
     }
@@ -43,15 +46,11 @@ class CiudadController extends AbstractController
         ),
         responses: [new OA\Response(response: 201, description: 'Created')]
     )]
-    public function create(Request $request, EntityManagerInterface $em): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
-        $entity = new Ciudad();
-        $entity->setNombre($data['nombre'] ?? '');
-
-        $em->persist($entity);
-        $em->flush();
+        $entity = $this->service->create($data);
 
         return $this->json($entity, 201);
     }
@@ -75,20 +74,11 @@ class CiudadController extends AbstractController
         ),
         responses: [new OA\Response(response: 200, description: 'OK')]
     )]
-    public function edit(int $id, Request $request, EntityManagerInterface $em): JsonResponse
+    public function edit(int $id, Request $request): JsonResponse
     {
-        $repo = $em->getRepository(Ciudad::class);
-        $entity = $repo->find($id);
-        if (!$entity) {
-            return $this->json(['error' => 'Not found'], 404);
-        }
-
         $data = json_decode($request->getContent(), true);
-        if (isset($data['nombre'])) {
-            $entity->setNombre($data['nombre']);
-        }
 
-        $em->flush();
+        $entity = $this->service->edit($id, $data);
 
         return $this->json($entity);
     }
