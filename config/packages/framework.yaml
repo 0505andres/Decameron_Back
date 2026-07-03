@@ -2,6 +2,15 @@
 framework:
     secret: '%env(APP_SECRET)%'
 
+    cors:
+        paths:
+            '^/api/':
+                allow_origin: ['*']
+                allow_headers: ['Content-Type', 'Authorization']
+                allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+                max_age: 3600
+                allow_credentials: false
+
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 
