@@ -12,7 +12,7 @@ class TipoHabitacion
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: false)]
     private ?string $nombre = null;
 
     public function getId(): ?int

@@ -12,16 +12,16 @@ class Hotel
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[ORM\Column(type: 'string', length: 100, unique: true, nullable: false)]
     private string $nombre;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100, nullable: false)]
     private string $direccion;
 
-    #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[ORM\Column(type: 'string', length: 100, unique: true, nullable: false)]
     private string $nit;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $numeroHabitaciones;
 
     #[ORM\ManyToOne(targetEntity: Ciudad::class)]

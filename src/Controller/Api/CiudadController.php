@@ -35,6 +35,7 @@ class CiudadController extends AbstractController
             required: true,
             content: new OA\JsonContent(
                 type: 'object',
+                required: ['nombre'],
                 properties: [
                     new OA\Property(property: 'nombre', type: 'string', example: 'Bogotá')
                 ]
@@ -66,6 +67,7 @@ class CiudadController extends AbstractController
             required: true,
             content: new OA\JsonContent(
                 type: 'object',
+                required: ['id','nombre'],
                 properties: [
                     new OA\Property(property: 'nombre', type: 'string', example: 'Medellín')
                 ]

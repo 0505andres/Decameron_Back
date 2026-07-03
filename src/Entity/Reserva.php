@@ -12,16 +12,16 @@ class Reserva
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 200)]
+    #[ORM\Column(type: 'string', length: 200, nullable: false)]
     private ?string $cliente = null;
 
-    #[ORM\Column(type: 'string', length: 30)]
+    #[ORM\Column(type: 'string', length: 30, nullable: false)]
     private ?string $numeroDocumento = null;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: false)]
     private int $edad;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private \DateTimeInterface $fechaReserva;
 
     #[ORM\ManyToOne(targetEntity: Hotel::class)]
@@ -33,7 +33,7 @@ class Reserva
     #[ORM\Column(type: 'date')]
     private \DateTimeInterface $fechaIngreso;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'date', nullable: false)]
     private \DateTimeInterface $fechaSalida;
 
     public function getId(): ?int
