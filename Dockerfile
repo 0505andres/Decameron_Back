@@ -14,4 +14,5 @@ COPY . /var/www/html
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader || true
 
-CMD ["php-fpm"]
+EXPOSE 9000
+CMD ["php", "-S", "0.0.0.0:9000", "-t", "public"]

@@ -1,3 +1,3 @@
 nelmio_api_doc:
-    resource: '@NelmioApiDocBundle/Resources/config/routing/swaggerui.yaml'
+    resource: '@NelmioApiDocBundle/config/routing/swaggerui.php'
     prefix: /api/docs

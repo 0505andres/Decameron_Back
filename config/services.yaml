@@ -19,5 +19,12 @@ services:
     App\:
         resource: '../src/'
 
+    nelmio_api_doc.controller.swagger_ui:
+        class: Nelmio\ApiDocBundle\Controller\SwaggerUiController
+        public: true
+        arguments:
+            - '@nelmio_api_doc.render_docs'
+            - 'swaggerui'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
