@@ -18,7 +18,7 @@ class Habitacion
     #[ORM\ManyToOne(targetEntity: Hotel::class)]
     private ?Hotel $hotel = null;
 
-    #[ORM\Column(type: 'string', length: 5, nullable: false)]
+    #[ORM\Column(type: 'string', length: 15, nullable: false)]
     private string $codigo;
 
     #[ORM\ManyToOne(targetEntity: TipoHabitacion::class)]

@@ -1,10 +1,13 @@
 <?php
+namespace App\Controller\Api;
+
 use App\Service\HabitacionService;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Exception\BusinessException;
 
 #[Route('/api/habitacion')]
 #[OA\Tag(name: 'Habitacion')]

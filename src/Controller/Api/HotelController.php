@@ -4,7 +4,6 @@ namespace App\Controller\Api;
 
 use App\Entity\Hotel;
 use App\Entity\Ciudad;
-use App\Exception\BusinessException;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

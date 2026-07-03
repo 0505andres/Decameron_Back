@@ -37,6 +37,9 @@ final class HabitacionService
             throw new BusinessException('No se pueden registrar más habitaciones para este hotel. Se ha alcanzado el límite de ' . $numHabitaciones . ' habitaciones.');
         }
 
+        if($dto->getCodigo() && strlen($dto->getCodigo()) > 15) {
+            throw new BusinessException('El código de la habitación no puede exceder los 15 caracteres.');
+        }
 
         $tipo = null;
         if ($dto->tipoHabitacionId) {
