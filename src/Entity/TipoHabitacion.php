@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: \App\Repository\TipoHabitacionRepository::class)]
 #[UniqueEntity(fields: ['nombre'], message: 'Este tipo de habitación ya está registrado.')]
 class TipoHabitacion
 {

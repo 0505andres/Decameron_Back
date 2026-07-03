@@ -31,9 +31,12 @@ final class ReservaRepository extends ServiceEntityRepository
                 'hotel.nombre AS hotelNombre',
                 'habitacion.id AS habitacionId',
                 'habitacion.codigo AS habitacionCodigo',
+                'tipoHabitacion.id AS tipoHabitacionId',
+                'tipoHabitacion.nombre AS tipoHabitacionNombre',
             ])
             ->leftJoin('r.hotel', 'hotel')
             ->leftJoin('r.habitacion', 'habitacion')
+            ->leftJoin('habitacion.tipoHabitacion', 'tipoHabitacion')
             ->orderBy('r.id', 'ASC');
 
         return $qb->getQuery()->getArrayResult();

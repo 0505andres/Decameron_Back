@@ -24,9 +24,6 @@ final class HotelService
     public function obtenerReporteHabitaciones(): array
     {
         $repo = $this->em->getRepository(Hotel::class);
-        if (!method_exists($repo, 'findHotelsWithRoomCounts')) {
-            throw new \RuntimeException('Repositorio de Hotel no implementa findHotelsWithRoomCounts');
-        }
 
         return $repo->findHotelsWithRoomCounts();
     }

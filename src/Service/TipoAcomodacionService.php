@@ -15,7 +15,7 @@ final class TipoAcomodacionService
 
     public function list(): array
     {
-        return $this->em->getRepository(TipoAcomodacion::class)->findAll();
+        return $this->em->getRepository(TipoAcomodacion::class)->findForList();
     }
 
     public function create(array $data): TipoAcomodacion

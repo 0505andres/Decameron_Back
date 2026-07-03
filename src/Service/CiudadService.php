@@ -15,7 +15,7 @@ final class CiudadService
 
     public function list(): array
     {
-        return $this->em->getRepository(Ciudad::class)->findAll();
+        return $this->em->getRepository(Ciudad::class)->findForList();
     }
 
     public function create(array $data): Ciudad

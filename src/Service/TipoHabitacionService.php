@@ -15,7 +15,7 @@ final class TipoHabitacionService
 
     public function list(): array
     {
-        return $this->em->getRepository(TipoHabitacion::class)->findAll();
+        return $this->em->getRepository(TipoHabitacion::class)->findForList();
     }
 
     public function create(array $data): TipoHabitacion
