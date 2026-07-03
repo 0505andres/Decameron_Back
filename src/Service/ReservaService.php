@@ -38,6 +38,12 @@ final class ReservaService
         $habitacion = $this->em->getRepository(Habitacion::class)->find($dto->habitacionId);
         if (!$habitacion) throw new BusinessException('Habitacion no encontrada');
 
+        if($habitacion->getActivo() === false) {
+            throw new BusinessException('La habitación no está activa');
+        }
+        if($habitacion->getLibre() === false) {
+            throw new BusinessException('La habitación no está libre');
+        }
 
 
         $res = new Reserva();
@@ -49,8 +55,10 @@ final class ReservaService
         $res->setFechaSalida(new \DateTime($dto->fechaSalida));
         $res->setHotel($hotel);
         $res->setHabitacion($habitacion);
+        $habitacion->setLibre(false);
 
         $this->em->persist($res);
+        $this->em->persist($habitacion);
         $this->em->flush();
 
         return $res;

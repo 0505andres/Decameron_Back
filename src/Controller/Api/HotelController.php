@@ -33,6 +33,29 @@ class HotelController extends AbstractController
         return $this->json($items);
     }
 
+    #[Route('/rooms-report', methods: ['GET'])]
+    #[OA\Get(
+        path: '/api/hotel/rooms-report',
+        summary: 'Reporte de habitaciones por hotel',
+        responses: [
+            new OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(
+                type: 'array',
+                items: new OA\Items(type: 'object', properties: [
+                    new OA\Property(property: 'id', type: 'integer'),
+                    new OA\Property(property: 'nombre', type: 'string'),
+                    new OA\Property(property: 'numeroHabitaciones', type: 'integer'),
+                    new OA\Property(property: 'habitacionesCreadas', type: 'integer'),
+                    new OA\Property(property: 'habitacionesOcupadas', type: 'integer'),
+                ])
+            ))]
+    )]
+    public function roomsReport(): JsonResponse
+    {
+        $items = $this->service->obtenerReporteHabitaciones();
+
+        return $this->json($items);
+    }
+
     #[Route('', methods: ['POST'])]
     #[OA\Post(
         path: '/api/hotel',

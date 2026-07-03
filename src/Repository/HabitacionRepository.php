@@ -38,4 +38,31 @@ final class HabitacionRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getArrayResult();
     }
+
+    /**
+     * Busca habitaciones disponibles por hotel, tipo de acomodación y tipo de habitación.
+     *
+     * @return string[]
+     */
+    public function findAvailableCodes(int $hotelId, int $tipoHabitacionId, int $acomodacionId): array
+    {
+        $qb = $this->createQueryBuilder('h')
+            ->select('h.codigo AS codigo')
+            ->leftJoin('h.hotel', 'hotel')
+            ->leftJoin('h.tipoHabitacion', 'tipo')
+            ->leftJoin('h.acomodacion', 'acom')
+            ->where('hotel.id = :hotelId')
+            ->andWhere('tipo.id = :tipoHabitacionId')
+            ->andWhere('acom.id = :acomodacionId')
+            ->andWhere('h.libre = true')
+            ->andWhere('h.activo = true')
+            ->setParameters([
+                'hotelId' => $hotelId,
+                'tipoHabitacionId' => $tipoHabitacionId,
+                'acomodacionId' => $acomodacionId,
+            ])
+            ->orderBy('h.codigo', 'ASC');
+
+        return array_column($qb->getQuery()->getArrayResult(), 'codigo');
+    }
 }

@@ -18,9 +18,17 @@ final class HotelService
     {
         $repo = $this->em->getRepository(Hotel::class);
 
-            return $repo->findForList();
+        return $repo->findForList();
+    }
 
-        return $result;
+    public function obtenerReporteHabitaciones(): array
+    {
+        $repo = $this->em->getRepository(Hotel::class);
+        if (!method_exists($repo, 'findHotelsWithRoomCounts')) {
+            throw new \RuntimeException('Repositorio de Hotel no implementa findHotelsWithRoomCounts');
+        }
+
+        return $repo->findHotelsWithRoomCounts();
     }
 
     public function create(array $data): Hotel

@@ -20,7 +20,28 @@ final class HabitacionService
     {
         $repo = $this->em->getRepository(Habitacion::class);
         return $repo->findForList();
+    }
 
+    public function buscarDisponible(int $hotelId, int $tipoHabitacionId, int $acomodacionId): array
+    {
+        $hotel = $this->em->getRepository(Hotel::class)->find($hotelId);
+        if (!$hotel) {
+            throw new BusinessException('Hotel no encontrado');
+        }
+
+        $tipoHabitacion = $this->em->getRepository(TipoHabitacion::class)->find($tipoHabitacionId);
+        if (!$tipoHabitacion) {
+            throw new BusinessException('TipoHabitacion no encontrado');
+        }
+
+        $acomodacion = $this->em->getRepository(TipoAcomodacion::class)->find($acomodacionId);
+        if (!$acomodacion) {
+            throw new BusinessException('TipoAcomodacion no encontrado');
+        }
+
+        $repo = $this->em->getRepository(Habitacion::class);
+
+        return $repo->findAvailableCodes($hotelId, $tipoHabitacionId, $acomodacionId);
     }
 
     public function create(array $data): Habitacion
@@ -106,4 +127,5 @@ final class HabitacionService
 
         return $h;
     }
+
 }

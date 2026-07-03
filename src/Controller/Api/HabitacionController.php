@@ -30,6 +30,32 @@ class HabitacionController extends AbstractController
         return $this->json($items);
     }
 
+    #[Route('/disponible', methods: ['GET'])]
+    #[OA\Get(
+        path: '/api/habitacion/disponible',
+        summary: 'Buscar habitaciones disponibles',
+        parameters: [
+            new OA\Parameter(name: 'hotelId', in: 'query', required: true, schema: new OA\Schema(type: 'integer')),
+            new OA\Parameter(name: 'tipoHabitacionId', in: 'query', required: true, schema: new OA\Schema(type: 'integer')),
+            new OA\Parameter(name: 'acomodacionId', in: 'query', required: true, schema: new OA\Schema(type: 'integer'))
+        ],
+        responses: [
+            new OA\Response(response: 200, description: 'OK', content: new OA\JsonContent(type: 'array', items: new OA\Items(type: 'string'))),
+            new OA\Response(response: 400, description: 'Bad Request'),
+            new OA\Response(response: 404, description: 'Not Found')
+        ]
+    )]
+    public function available(Request $request): JsonResponse
+    {
+        $hotelId = (int)$request->query->get('hotelId');
+        $tipoHabitacionId = (int)$request->query->get('tipoHabitacionId');
+        $acomodacionId = (int)$request->query->get('acomodacionId');
+
+        $result = $this->service->buscarDisponible($hotelId, $tipoHabitacionId, $acomodacionId);
+
+        return $this->json($result);
+    }
+
     #[Route('', methods: ['POST'])]
     #[OA\Post(
         path: '/api/habitacion',
