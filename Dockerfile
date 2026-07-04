@@ -14,6 +14,7 @@ COPY composer.json composer.lock ./
 
 
 COPY . /var/www/html
+RUN touch .env && echo "APP_ENV=prod" > .env
 
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
